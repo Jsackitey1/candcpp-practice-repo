@@ -1,0 +1,30 @@
+# Eclipse workspace metadata & configuration
+.metadata/
+.recommenders/
+*.launch
+*.tmp
+*.bak
+*.swp
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+
+# C / C++ build outputs
+Debug/
+Release/
+*.o
+*.d
+*.obj
+*.exe
+*.out
+*.app
+
+# Java build outputs
+bin/
+*.class
