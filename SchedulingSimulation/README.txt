@@ -1,14 +1,15 @@
 DEVELOPMENT PROCESS
 
-I gave the AI the full assignment specification and asked it to propose a
-plan before writing any code. The plan covered scheduling rules, tie-breaking,
-context switch accounting, and edge cases. After I reviewed and approved it,
-the AI generated the complete first implementation of CPUSim.c — all four
-schedulers, input parsing, statistics, and output — in one pass. I then
-worked with the AI iteratively: supplying the instructor's reference output,
-asking it to explain differences, having it write tests, and adding the
-//-- process lifecycle comments for submission. The approach was AI-writes-
-first, then I review, test, and request targeted changes.
+I set up the initial project structure and the functions I thought were needed,
+then gave the AI the assignment specification and asked it to review my current
+layout and propose a plan before writing any code. The plan covered scheduling
+rules, tie-breaking, context switch accounting, and edge cases. After I
+reviewed and approved it, the AI generated the full implementation of CPUSim.c after a few iterations
+ — all four schedulers, input parsing, statistics, and output. 
+From there I worked with the AI iteratively: supplying the instructor's reference
+output, asking it to explain differences, having it write tests, and adding
+the //-- process lifecycle comments for submission. The approach was AI builds
+on my structure, then I review, test, and request targeted changes.
 
 LLM USED
 
