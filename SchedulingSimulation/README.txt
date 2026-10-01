@@ -19,11 +19,12 @@ LLM USED
 
 IMPORTANT PROMPTS
 
-1. "Help me implement this CPU Scheduling Simulation. Propose a plan
-   covering scheduling rules, data structures, and edge cases. I have to
+1. "Based on the code skeleton and structure I have set up, help me implement this CPU Scheduling Simulation. Propose a plan
+   covering the various scheduling rules, data structures, and edge cases. I have to
    approve the plan first before any code is written."
 
-2. "Yes" — approving the plan so coding could begin.
+2. Made a few changes to the plam to meet the assignemnet requirment and 
+"Yes" — approved the plan so coding could begin.
 
 3. "Write a Python test suite with hand-calculated fixtures that checks
    zero wait, simultaneous arrivals, ties in priority/burst, arrivals
