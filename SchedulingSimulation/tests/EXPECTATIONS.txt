@@ -1,0 +1,39 @@
+Representative hand-calculated expectations
+==========================================
+Intervals are start-inclusive, end-exclusive. Switches use CPU time but
+perform no process work. The fixtures and all expected completion lists
+are in test_sim.py; each list is in input order.
+
+Single job: arrival 10, burst 45.
+Idle 0-10; run 10-55. All schedulers finish at 55 with zero waiting.
+Utilization = 100 * 45/55; throughput = 1000/55.
+RR continues after 20 and 40 ms of work without paying a switch.
+
+Two jobs, arrival 0, burst 4 each, equal priority:
+P1 0-4; switch 4-9; P2 9-13. Completions [4, 13].
+Waits [0, 9], average wait 4.5; average turnaround 8.5.
+
+P1: priority 5, arrival 0, burst 10.
+P2: priority 1, arrival 2, burst 2.
+FCFS and RR: P1 0-10; switch 10-15; P2 15-17.
+SJF and priority: P1 0-2; switch 2-7; P2 7-9; switch 9-14;
+P1 14-22. Completions [22, 9], waits [12, 5].
+
+Arrival during a switch:
+P1 (priority 3, arrival 0, burst 10), P2 (2, 2, 4), P3 (1, 4, 1).
+SJF/priority: P1 0-2; uninterrupted switch 2-7; P3 7-8;
+switch 8-13; P2 13-17; switch 17-22; P1 22-30.
+Completions [30, 17, 8]. The arrival at 4 does not restart the switch.
+
+RR, two simultaneous 25 ms jobs:
+P1 0-20; switch 20-25; P2 25-45; switch 45-50;
+P1 50-55; switch 55-60; P2 60-65. Completions [55, 65].
+
+RR boundary arrival: P1 arrival 0 burst 21; P2 arrival 20 burst 1.
+P1 0-20; enqueue P2 before requeuing P1; switch 20-25;
+P2 25-26; switch 26-31; P1 31-32. Completions [32, 26].
+SJF keeps P1 at time 20 because both remaining bursts equal 1.
+
+1000 simultaneous equal-priority jobs with burst 1:
+Every scheduler completes job i (zero-based input index) at 1 + 6*i.
+There are 1000 ms of work and 999 switches, ending at 5995 ms.

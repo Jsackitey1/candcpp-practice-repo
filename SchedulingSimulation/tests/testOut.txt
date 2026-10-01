@@ -1,0 +1,51 @@
+Scheduler: FCFS
+Time when the last process finished: 315
+CPU Utilization: 90.476190%
+Throughput: 15.873016 process per second.
+Average Wait Time: 133.200000
+Average Turnaround Time: 190.200000
+
+1 5 75 70 5
+2 10 153 143 70
+3 15 175 160 143
+4 20 308 288 160
+35 25 315 290 288
+
+Scheduler: pSJF
+Time when the last process finished: 325
+CPU Utilization: 87.692308%
+Throughput: 15.384615 process per second.
+Average Wait Time: 70.400000
+Average Turnaround Time: 127.400000
+
+1 5 114 109 44
+2 10 192 182 109
+3 15 49 34 17
+4 20 325 305 177
+35 25 32 7 5
+
+Scheduler: Priority
+Time when the last process finished: 315
+CPU Utilization: 90.476190%
+Throughput: 15.873016 process per second.
+Average Wait Time: 108.000000
+Average Turnaround Time: 165.000000
+
+1 5 75 70 5
+2 10 153 143 70
+3 15 175 160 143
+4 20 315 295 167
+35 25 182 157 155
+
+Scheduler: Round Robin q=20
+Time when the last process finished: 360
+CPU Utilization: 79.166667%
+Throughput: 13.888889 process per second.
+Average Wait Time: 148.400000
+Average Turnaround Time: 205.400000
+
+1 5 269 264 199
+2 10 287 277 204
+3 15 77 62 45
+4 20 360 340 212
+35 25 109 84 82

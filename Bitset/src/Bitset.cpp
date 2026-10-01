@@ -17,6 +17,7 @@ private:
 	const T ZERO = 0;
 	const T ONE = 1;
 	const int NUM_BITS = 8 * sizeof(T);
+	const T ALL_ONES = ~ZERO;
 
 public:
 
@@ -36,11 +37,11 @@ public:
 		return data == ZERO;
 	}
 
-	bool any() {
+	bool any() const {
 		return data != ZERO;
 	}
 
-	bool all(){
+	bool all() const {
 		return data == (~ZERO);
 	}
 
@@ -48,7 +49,7 @@ public:
 		data = data ^ (~ZERO);
 	}
 
-	bool get(int index) const{
+	bool get(int index) const {
 		T mask = ONE;
 		mask <<= index;
 		return (data & mask) != ZERO;
@@ -91,7 +92,6 @@ public:
 
 		T right = ((data << quart) & (qmask << (half + quart)));
 		data = rembyte | left | right;
-
 	}
 
 	void swapLo() {
@@ -123,17 +123,16 @@ public:
 			if ((data & mask) != ZERO) {
 				ans += 1;
 			}
-
 			mask = mask << 1;
 		}
 
 		return ans;
 	}
 
-	void printBinary() const{
+	void printBinary() const {
 		cout << "0b";
 		T mask = ONE;
-		mask = mask << (mask - 1);
+		mask = ONE << (NUM_BITS - 1);
 
 		for (int i = 0; i < NUM_BITS; i++) {
 			char c;
@@ -149,7 +148,7 @@ public:
 		}
 	}
 
-	void print() {
+	void print() const {
 		cout << "[" << dec << data << ", 0x" << hex << data << ", 0" << oct
 				<< data << ", ";
 		printBinary();
@@ -210,8 +209,8 @@ Bitset<T> operator^(const Bitset<T> &a, const Bitset<T> &b) {
 }
 
 //template<typename T>
-//Bitset operator|(const Bitset& a , const Bitset& b){
-//	return Bitset(a.getValue() | b.getValue());
+//Bitset<T> operator|(const Bitset<T>& a , const Bitset<T>& b){
+//	return Bitset<T>(a.getValue() | b.getValue());
 //}
 
 template<typename T>
@@ -225,14 +224,14 @@ Bitset<T> operator>>(const Bitset<T> &a, int factor) {
 }
 
 template<typename T>
-bool operator>=(Bitset<T> &a, Bitset<T> &b) {
+bool operator>=(const Bitset<T> &a, const Bitset<T> &b) {
 	return !(a < b);
 }
 
 template<typename T>
 ostream& operator<<(ostream &os, const Bitset<T> &a) {
 	os << "[" << dec << a.getValue() << ", 0x" << hex << a.getValue() << ", 0"
-			<< oct << a.getValue() << ", ";
+			<< oct << a.getValue();
 	os << "]";
 	os << dec;
 	return os;
@@ -245,7 +244,7 @@ T id(T value) {
 
 int main() {
 	Bitset<unsigned short> bitset(0xABCD);
-	assert(bitset.getValue() == id(0xABCD));
+	assert(bitset == Bitset<unsigned short>(0xABCD));
 	assert(bitset.count() == 10);
 	assert(bitset.any());
 
@@ -262,6 +261,16 @@ int main() {
 	Bitset<unsigned short> inc(10);
 	++inc;
 	assert(inc == Bitset<unsigned short>(11));
+
+	Bitset<unsigned char> b1(0x0F);
+	assert(b1.count() == 4);
+	b1.flip();
+	assert(b1 == Bitset<unsigned char>(0xF0));
+
+	Bitset<unsigned long long> b8(0x4ULL);
+	assert(b8.isPow2() == true);
+	b8.clearLast1();
+	assert(b8 == Bitset<unsigned long long>(0x0ULL));
 
 	return 0;
 }
