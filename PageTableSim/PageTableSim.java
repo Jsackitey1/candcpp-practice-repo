@@ -1,6 +1,5 @@
 /*
- * PageTableSim.java
- *
+*
  * Reads a page table and a list of logical memory requests from a file,
  * then translates each logical address into a physical address.
  */
@@ -39,33 +38,35 @@ public class PageTableSim {
         }
 
         try {
-            long s;
+            int size;
             try {
-                s = Long.parseLong(in.next());
+                String sizeStr = in.next();
+                size = Integer.parseInt(sizeStr);
             } catch (Exception e) {
-                s = -1;
+                size = -1;
             }
-            if (s < 2 || s > (1L << 16) || (s & (s - 1)) != 0) {
+            if (size < 2 || size > (1 << 16) || (size & (size - 1)) != 0) {
                 System.err.println("Error: invalid page table size.");
                 System.exit(1);
             }
 
-            int size = (int) s;
             int pageMask = size - 1;
 
             int[] table = new int[size];
             for (int i = 0; i < size; i++) {
-                Integer value = readHex(in);
-                if (value == null) {
+                try {
+                    String entryStr = in.next();
+                    table[i] = Integer.parseInt(entryStr, 16);
+                } catch (Exception e) {
                     System.err.printf("Error: could not read page table entry %d.%n", i);
                     System.exit(1);
                 }
-                table[i] = value;
             }
 
             int n;
             try {
-                n = Integer.parseInt(in.next());
+                String countStr = in.next();
+                n = Integer.parseInt(countStr);
             } catch (Exception e) {
                 System.err.println("Error: could not read number of requests.");
                 System.exit(1);
@@ -73,12 +74,14 @@ public class PageTableSim {
             }
 
             for (int i = 0; i < n; i++) {
-                Integer value = readHex(in);
-                if (value == null) {
+                int request;
+                try {
+                    String requestStr = in.next();
+                    request = Integer.parseInt(requestStr, 16);
+                } catch (Exception e) {
                     System.err.printf("Error: could not read request %d.%n", i);
                     break;
                 }
-                int request = value;
 
                 int offset = request & OFFSET_MASK;
                 int page = (request >>> OFFSET_BITS) & pageMask;
@@ -103,21 +106,6 @@ public class PageTableSim {
             }
         } finally {
             in.close();
-        }
-    }
-
-    private static Integer readHex(Scanner in) {
-        if (!in.hasNext()) {
-            return null;
-        }
-        String token = in.next();
-        if (token.startsWith("0x") || token.startsWith("0X")) {
-            token = token.substring(2);
-        }
-        try {
-            return (int) Long.parseLong(token, 16);
-        } catch (NumberFormatException e) {
-            return null;
         }
     }
 }
