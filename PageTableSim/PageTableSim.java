@@ -39,7 +39,6 @@ public class PageTableSim {
         }
 
         try {
-            /* Read the number of page table entries (decimal). */
             long s;
             try {
                 s = Long.parseLong(in.next());
@@ -51,11 +50,9 @@ public class PageTableSim {
                 System.exit(1);
             }
 
-            /* Since s is a power of two, s - 1 masks exactly p bits. */
             int size = (int) s;
             int pageMask = size - 1;
 
-            /* Read the page table entries (hex). */
             int[] table = new int[size];
             for (int i = 0; i < size; i++) {
                 Integer value = readHex(in);
@@ -66,7 +63,6 @@ public class PageTableSim {
                 table[i] = value;
             }
 
-            /* Read the number of memory requests (decimal). */
             int n;
             try {
                 n = Integer.parseInt(in.next());
@@ -76,7 +72,6 @@ public class PageTableSim {
                 return;
             }
 
-            /* Process each request. */
             for (int i = 0; i < n; i++) {
                 Integer value = readHex(in);
                 if (value == null) {
@@ -111,10 +106,6 @@ public class PageTableSim {
         }
     }
 
-    /**
-     * Reads the next token as a 32-bit unsigned hex value (optional "0x" prefix),
-     * mirroring C's fscanf("%x"). Returns null if no valid token is available.
-     */
     private static Integer readHex(Scanner in) {
         if (!in.hasNext()) {
             return null;
